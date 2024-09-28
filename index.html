@@ -215,18 +215,6 @@
         .logout-btn:hover {
             background-color: #C0392B;
         }
-
-        /* Image display for Java Projects on hover */
-        .project-image {
-            display: none;
-            position: absolute;
-            top: 100px;
-            left: 300px;
-            width: 300px;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-        }
     </style>
 </head>
 <body>
@@ -238,14 +226,11 @@
     <nav>
         <a href="#" id="homeProjectsGeek"> Home</a>
         <a href="#" id="homeWebSkeletonizer">Web Skeletonizer Home</a>
-        <a href="#" >Java Projects</a>
+        <a href="#">Java Projects</a>
         <a href="#">C++ Projects</a>
         <a href="#">PHP Projects</a>
         <a href="#">NodeJs Projects</a>
     </nav>
-
-    <!-- Hidden image element -->
-    <img src="" alt="Project Preview" class="project-image" id="projectPreview">
 
     <!-- ProjectsGeek Main Content -->
     <div class="container" id="projectsGeekContent">
@@ -275,19 +260,18 @@
             <div class="">
                 <img src="" alt="">
             </div>
-            <h2>Web Skeletonizer</h2>
+            <h2>Dashboard</h2>
             <ul>
-                <li><a href="#" class="active" id="skeletonizerHome">Home</a></li>
-                <li><a href="#" id="skeletonizer">Skeletonizer</a></li>
-                <li><a href="#" id="settings">Settings</a></li>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Skeletonizer</a></li>
+                <li><a href="#">Settings</a></li>
             </ul>
-            <button class="logout-btn">Logout</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
         </div>
-
         <div class="main-content-ws">
-            <h1>Web Skeletonizer Home</h1>
+            <h1>Web Skeletonizer</h1>
             <form id="skeletonizerForm">
-                <input type="text" placeholder="Enter website URL" id="urlInput">
+                <input type="text" placeholder="Enter website URL..." id="urlInput">
                 <button type="submit">Skeletonize</button>
             </form>
             <div id="result"></div>
@@ -295,38 +279,129 @@
     </div>
 
     <footer>
-        <!-- Footer content -->
+        &copy; 2024  | Web Skeletonizer
     </footer>
 
     <script>
-        // Navigation toggles for displaying different sections
-        const projectsGeekContent = document.getElementById('projectsGeekContent');
-        const webSkeletonizerDashboard = document.getElementById('webSkeletonizerDashboard');
-        const homeProjectsGeek = document.getElementById('homeProjectsGeek');
-        const homeWebSkeletonizer = document.getElementById('homeWebSkeletonizer');
-
-        homeProjectsGeek.addEventListener('click', () => {
-            projectsGeekContent.style.display = 'flex';
-            webSkeletonizerDashboard.style.display = 'none';
+        // JavaScript for toggling between content
+        document.getElementById("homeProjectsGeek").addEventListener("click", function() {
+            document.getElementById("projectsGeekContent").style.display = "flex";
+            document.getElementById("webSkeletonizerDashboard").style.display = "none";
         });
-
-        homeWebSkeletonizer.addEventListener('click', () => {
-            projectsGeekContent.style.display = 'none';
-            webSkeletonizerDashboard.style.display = 'flex';
+    
+        document.getElementById("homeWebSkeletonizer").addEventListener("click", function() {
+            document.getElementById("projectsGeekContent").style.display = "none";
+            document.getElementById("webSkeletonizerDashboard").style.display = "flex";
         });
-
-        // Hover effect to show project image on Java project link
-        const javaProjectLink = document.querySelector('.java-project');
-        const projectImage = document.getElementById('projectPreview');
-
-        javaProjectLink.addEventListener('mouseenter', () => {
-            projectImage.src = javaProjectLink.getAttribute('data-image');
-            projectImage.style.display = 'block';
+    
+        // JavaScript for Logout functionality
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            window.location.href = "login.html"; // Redirect to the login page
         });
-
-        javaProjectLink.addEventListener('mouseleave', () => {
-            projectImage.style.display = 'none';
+    
+        // Function to count HTML elements
+        function countHtmlElements(doc) {
+            return {
+                divs: doc.querySelectorAll('div').length,
+                images: doc.querySelectorAll('img').length,
+                links: doc.querySelectorAll('a').length,
+                paragraphs: doc.querySelectorAll('p').length,
+                headers: doc.querySelectorAll('h1, h2, h3, h4, h5, h6').length,
+                lists: doc.querySelectorAll('ul, ol').length,
+                listItems: doc.querySelectorAll('li').length,
+                forms: doc.querySelectorAll('form').length,
+                inputs: doc.querySelectorAll('input').length,
+                buttons: doc.querySelectorAll('button').length,
+                tables: doc.querySelectorAll('table').length,
+                tableRows: doc.querySelectorAll('tr').length,
+                tableData: doc.querySelectorAll('td, th').length,
+            };
+        }
+    
+        // Function to count CSS properties
+        function countCssProperties(css) {
+            const regexCounts = {
+                color: (css.match(/color\s*:/g) || []).length,
+                fontSize: (css.match(/font-size\s*:/g) || []).length,
+                margin: (css.match(/margin\s*:/g) || []).length,
+                padding: (css.match(/padding\s*:/g) || []).length,
+                display: (css.match(/display\s*:/g) || []).length,
+                background: (css.match(/background\s*:/g) || []).length,
+                width: (css.match(/width\s*:/g) || []).length,
+                height: (css.match(/height\s*:/g) || []).length,
+                position: (css.match(/position\s*:/g) || []).length,
+                fontFamily: (css.match(/font-family\s*:/g) || []).length,
+                mediaQueries: (css.match(/@media/g) || []).length,
+            };
+            return regexCounts;
+        }
+    
+        // Function to display the results
+        function displayResults(htmlCounts, cssCounts) {
+            const htmlResult = `
+    HTML features:
+    Number of <div> elements: ${htmlCounts.divs}
+    Number of <img> elements: ${htmlCounts.images}
+    Number of <a> (links) elements: ${htmlCounts.links}
+    Number of <p> (paragraph) elements: ${htmlCounts.paragraphs}
+    Number of header elements (<h1> to <h6>): ${htmlCounts.headers}
+    Number of list elements (<ul>, <ol>): ${htmlCounts.lists}
+    Number of list item elements (<li>): ${htmlCounts.listItems}
+    Number of form elements: ${htmlCounts.forms}
+    Number of input elements: ${htmlCounts.inputs}
+    Number of button elements: ${htmlCounts.buttons}
+    Number of table elements: ${htmlCounts.tables}
+    Number of table row elements (<tr>): ${htmlCounts.tableRows}
+    Number of table data elements (<td>, <th>): ${htmlCounts.tableData}
+            `;
+    
+            const cssResult = `
+    CSS features:
+    Number of 'color' properties: ${cssCounts.color}
+    Number of 'font-size' properties: ${cssCounts.fontSize}
+    Number of 'margin' properties: ${cssCounts.margin}
+    Number of 'padding' properties: ${cssCounts.padding}
+    Number of 'display' properties: ${cssCounts.display}
+    Number of 'background' properties: ${cssCounts.background}
+    Number of 'width' properties: ${cssCounts.width}
+    Number of 'height' properties: ${cssCounts.height}
+    Number of 'position' properties: ${cssCounts.position}
+    Number of 'font-family' properties: ${cssCounts.fontFamily}
+    Number of '@media' queries: ${cssCounts.mediaQueries}
+            `;
+    
+            document.getElementById('result').textContent = htmlResult + '\n\n' + cssResult + '\nData successfully saved to the database.';
+        }
+    
+        // JavaScript for Skeletonizing the web content
+        document.getElementById("skeletonizerForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const url = document.getElementById('urlInput').value;
+    
+            // Fetch the HTML content
+            fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`)
+                .then(response => response.text())
+                .then(data => {
+                    const htmlContent = new DOMParser().parseFromString(data, 'text/html');
+                    const htmlCounts = countHtmlElements(htmlContent);
+    
+                    let cssContent = '';
+                    const links = htmlContent.querySelectorAll('link[rel="stylesheet"]');
+                    const cssFetches = Array.from(links).map(link => fetch(link.href).then(response => response.text()));
+    
+                    // Fetch and analyze all linked CSS
+                    Promise.all(cssFetches).then(cssFiles => {
+                        cssFiles.forEach(css => { cssContent += css; });
+                        const cssCounts = countCssProperties(cssContent);
+                        displayResults(htmlCounts, cssCounts);
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = 'Error fetching the website content. Please check the URL or try another one.';
+                });
         });
     </script>
+    
+
 </body>
 </html>
