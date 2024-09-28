@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Skeletonizer & ProjectsGeek</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0; 
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2c3e50;
+            padding: 15px 20px;
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+        }
+        nav {
+            background-color: #3498db;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        nav a:hover {
+            background-color: #2980b9;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* ProjectsGeek Styling */
+        .container {
+            display: flex;
+            margin: 20px;
+        }
+        .main-content {
+            flex: 2;
+            padding: 20px;
+            background-color: #fff;
+            margin-right: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .main-content h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .main-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+        .main-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .sidebar {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #3498db;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Web Skeletonizer Styling */
+        .dashboard {
+            display: flex;
+            margin: 20px;
+            background-color: #ECF0F1;
+            height: 100vh;
+            display: none;
+        }
+        .sidebar-ws {
+            width: 250px;
+            background-color: #2C3E50;
+            color: #fff;
+            padding: 20px;
+        }
+        .sidebar-ws .logo img {
+            width: 100%;
+            height: auto;
+        }
+        .sidebar-ws h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ECF0F1;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .sidebar-ws ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-ws ul li {
+            margin: 15px 0;
+        }
+
+        /* Enhanced color and hover effects for Home, Skeletonizer, and Settings */
+        .sidebar-ws ul li a {
+            color: #ECF0F1;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+            font-size: 16px;
+            background-color: #34495E;
+        }
+
+        .sidebar-ws ul li a:hover {
+            background-color: #1ABC9C;
+            color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Active link (selected state) */
+        .sidebar-ws ul li a.active {
+            background-color: #3498db;
+            color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-content-ws {
+            flex: 1;
+            padding: 40px;
+            background-color: #ECF0F1;
+        }
+        .main-content-ws h1 {
+            margin-top: 0;
+            color: #2C3E50;
+            font-size: 28px;
+        }
+        .main-content-ws form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .main-content-ws form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #BDC3C7;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            color: #34495E;
+            background-color: #fff;
+        }
+        .main-content-ws form button {
+            padding: 12px 25px;
+            border: none;
+            background-color: #2ECC71;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .main-content-ws #result {
+            padding: 20px;
+            border: 1px solid #BDC3C7;
+            border-radius: 5px;
+            background-color: #fff;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            height: 300px;
+        }
+
+        /* Logout button */
+        .logout-btn {
+            background-color: #E74C3C;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+        }
+        .logout-btn:hover {
+            background-color: #C0392B;
+        }
+
+        /* Image display for Java Projects on hover */
+        .project-image {
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 300px;
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Header content -->
+    </header>
+
+    <nav>
+        <a href="#" id="homeProjectsGeek"> Home</a>
+        <a href="#" id="homeWebSkeletonizer">Web Skeletonizer Home</a>
+        <a href="#" >Java Projects</a>
+        <a href="#">C++ Projects</a>
+        <a href="#">PHP Projects</a>
+        <a href="#">NodeJs Projects</a>
+    </nav>
+
+    <!-- Hidden image element -->
+    <img src="" alt="Project Preview" class="project-image" id="projectPreview">
+
+    <!-- ProjectsGeek Main Content -->
+    <div class="container" id="projectsGeekContent">
+        <div class="main-content">
+            <h1>Welcome to Web Skeletonizer</h1>
+            <p>Are you looking for Big and free collection of Java projects with source code? Here we have a collection of almost 100+ Java projects for you. Java is the well-known and widely used language for mobile as well as web applications. Download Java mini projects with source code for academic and final year projects. Just download Java mini projects and create databases according to the information provided.</p>
+            <p>Pocket Tanks Game Java mini projects are the game project which is actually like commercially available pocket Tank game. It uses the applet and servlet concept of Java programming to run the program.</p>
+            <img src="" alt="">
+        </div>
+
+        <div class="sidebar">
+            <h3>Tags</h3>
+            <ul>
+                <li><a href="#">.Net Projects</a></li>
+                <li><a href="#">Android Projects</a></li>
+                <li><a href="#">Assembly Codes</a></li>
+                <li><a href="#">C++ Projects</a></li>
+                <li><a href="#">Java Projects</a></li>
+                <li><a href="#">Python Projects</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Web Skeletonizer Dashboard -->
+    <div class="dashboard" id="webSkeletonizerDashboard">
+        <div class="sidebar-ws">
+            <div class="">
+                <img src="" alt="">
+            </div>
+            <h2>Web Skeletonizer</h2>
+            <ul>
+                <li><a href="#" class="active" id="skeletonizerHome">Home</a></li>
+                <li><a href="#" id="skeletonizer">Skeletonizer</a></li>
+                <li><a href="#" id="settings">Settings</a></li>
+            </ul>
+            <button class="logout-btn">Logout</button>
+        </div>
+
+        <div class="main-content-ws">
+            <h1>Web Skeletonizer Home</h1>
+            <form id="skeletonizerForm">
+                <input type="text" placeholder="Enter website URL" id="urlInput">
+                <button type="submit">Skeletonize</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script>
+        // Navigation toggles for displaying different sections
+        const projectsGeekContent = document.getElementById('projectsGeekContent');
+        const webSkeletonizerDashboard = document.getElementById('webSkeletonizerDashboard');
+        const homeProjectsGeek = document.getElementById('homeProjectsGeek');
+        const homeWebSkeletonizer = document.getElementById('homeWebSkeletonizer');
+
+        homeProjectsGeek.addEventListener('click', () => {
+            projectsGeekContent.style.display = 'flex';
+            webSkeletonizerDashboard.style.display = 'none';
+        });
+
+        homeWebSkeletonizer.addEventListener('click', () => {
+            projectsGeekContent.style.display = 'none';
+            webSkeletonizerDashboard.style.display = 'flex';
+        });
+
+        // Hover effect to show project image on Java project link
+        const javaProjectLink = document.querySelector('.java-project');
+        const projectImage = document.getElementById('projectPreview');
+
+        javaProjectLink.addEventListener('mouseenter', () => {
+            projectImage.src = javaProjectLink.getAttribute('data-image');
+            projectImage.style.display = 'block';
+        });
+
+        javaProjectLink.addEventListener('mouseleave', () => {
+            projectImage.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

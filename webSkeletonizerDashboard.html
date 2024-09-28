@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Skeletonizer Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ECF0F1;
+            margin: 0;
+            padding: 0;
+            color: #34495E;
+        }
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2C3E50;
+            color: #fff;
+            padding: 20px;
+        }
+        .sidebar .logo img {
+            width: 100%;
+            height: auto;
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ECF0F1;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+        .sidebar ul li a {
+            color: #ECF0F1;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+        }
+        .sidebar ul li a:hover {
+            background-color: #34495E;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar ul li:nth-child(1) a {
+            background-color: #F39C12;
+        }
+        .sidebar ul li:nth-child(2) a {
+            background-color: #2ECC71;
+        }
+        .sidebar ul li:nth-child(3) a {
+            background-color: #E74C3C;
+        }
+        .sidebar ul li:nth-child(4) a {
+            background-color: #3498DB;
+        }
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background-color: #ECF0F1;
+        }
+        .main-content h1 {
+            margin-top: 0;
+            color: #2C3E50;
+            font-size: 28px;
+        }
+        .main-content form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .main-content form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #BDC3C7;
+            border-radius: 5px 0 0 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+            color: #34495E;
+            background-color: #fff;
+        }
+        .main-content form input:hover, .main-content form input:focus {
+            border-color: #2ECC71;
+            box-shadow: 0px 4px 8px rgba(76, 175, 80, 0.2);
+        }
+        .main-content form button {
+            padding: 12px 25px;
+            border: none;
+            background-color: #2ECC71;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+        }
+        .main-content form button:hover {
+            background-color: #27AE60;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .main-content #result {
+            padding: 20px;
+            border: 1px solid #BDC3C7;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2C3E50;
+            color: #ECF0F1;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="" alt="">
+            </div>
+            <h2>Dashboard</h2>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Skeletonizer</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#" id="logoutButton">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Web Skeletonizer</h1>
+            <form id="skeletonizerForm">
+                <input type="text" id="urlInput" placeholder="Enter URL" required>
+                <button type="submit">Skeletonize</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div>
+    <div class="footer">
+        © 2024 Web Skeletonizer. All rights reserved.
+    </div>
+    <script>
+        document.getElementById('skeletonizerForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const url = document.getElementById('urlInput').value;
+            const response = await fetch('/skeletonize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url })
+            });
+            const result = await response.json();
+            document.getElementById('result').innerHTML = `
+                <h2>HTML</h2>
+                <pre>${result.html}</pre>
+                <h2>CSS</h2>
+                <pre>${result.css}</pre>
+            `;
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            window.location.href = 'login.html'; // Redirect to login page
+        });
+    </script>
+</body>
+</html>
